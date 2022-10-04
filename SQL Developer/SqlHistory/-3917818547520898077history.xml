@@ -1,0 +1,12 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT  deptno,decode( substr(deptno,1,2), '10', '영업부', '20', '관리부','30', 'IT부','기술부') AS 부서 
+FROM emp;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664866176565]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[3]]></executed>
+		<execTime><![CDATA[0.003]]></execTime>
+	</historyItem>
+</history>

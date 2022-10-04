@@ -1,0 +1,11 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[file:/C:/Users/kosmo/AppData/Roaming/SQL Developer/review1004(2)sql]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664874573245]]></timestamp>
+		<type><![CDATA[Script]]></type>
+		<executed><![CDATA[7]]></executed>
+		<execTime><![CDATA[0.0]]></execTime>
+	</historyItem>
+</history>

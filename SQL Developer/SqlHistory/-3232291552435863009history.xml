@@ -1,0 +1,16 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select  count(*) , round(avg(sal),-2), min(sal), max(sal), sum(sal) as sum
+from emp
+-- where
+group by deptno
+-- having
+order by sum desc;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664870472656]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[3]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

@@ -1,0 +1,145 @@
+-- ? 1. 2003³â¿¡ ÀÔ»çÇÑ »ç¿øµéÀÇ »ç¹ø, ÀÌ¸§, ÀÔ»çÀÏÀ» Ãâ·Â
+select employee_id, concat(first_name,last_name) as fullname, hire_date
+from employees
+where To_char(hire_date,'yyyy') = 2003 ;
+
+
+-- 2. ¾÷¹«°¡ FI_ACCOUNT / FI_MGR / SA_MAN / SA_REP ÀÎ »ç¿øµéÀÇ Á¤º¸¸¦ Ãâ·Â
+select *
+from employees
+where job_id  in('SA_MAN','FI_MGR','FI_ACCOUNT','SA_REP');
+
+-- ?3. Ä¿¹Ì¼ÇÀ» ¹Ş´Â »ç¿øµéÀÇ ¸í´ÜÀ» Ãâ·Â
+select *
+from employees
+where commission_pct is not null;
+
+-- 4. ¾÷¹«°¡ SA_MAN ¶Ç´Â SA_REPÀÌ¸é "ÆÇ¸ÅºÎ¼­"¸¦ ±× ¿Ü´Â "±× ¿Ü ºÎ¼­"¶ó°í Ãâ·Â
+SELECT job_id, decode( job_id, 'SA_MAN', 'ÆÇ¸ÅºÎ¼­', 'SA_REP', 'ÆÇ¸ÅºÎ¼­', '±× ¿Ü ºÎ¼­') AS ºÎ¼­ 
+FROM employees;
+
+-- 5. ¿¬µµº°·Î ÀÔ»çÀÚµéÀÇ ÃÖ¼Ò±Ş¿©, ÃÖ´ë ±Ş¿©, ±Ş¿©ÀÇ ÃÑÇÕ ±×¸®°í Æò±Õ ±Ş¿©¸¦ ±¸ÇÏ½Ã¿À
+select To_char(hire_date,'yyyy') as year, min(salary), max(salary), sum(salary), round(avg(salary),-2) as avg
+from employees
+group by To_char(hire_date,'yyyy')
+order by To_char(hire_date,'yyyy') ;
+
+-- 6.ºÎ¼­º° Æò±Õ ±Ş¿©°¡ $10,000 ÀÌ»óÀÎ ºÎ¼­¸¸ ±¸ÇÏ½Ã¿À. ( Æò±Õ±Ş¿©°¡ ³ôÀº ¼øÀ¸·Î )
+select department_id, round(avg(salary),-2) as avgs
+from employees
+group by department_id
+having  avg(salary) >= 10000
+order by avg(salary) desc;
+
+
+-- 7.ºÎ¼­º° ÃÖ´ë ±Ş¿©¸¦ ±¸ÇÏ½Ã¿À 
+select department_id , max(salary)
+from employees
+group by department_id
+order by department_id;
+
+?
+
+
+CREATE TABLE reg_tab( text varchar2(20) );
+
+?
+
+-- ·¹ÄÚµå ÀÔ·Â
+
+INSERT INTO reg_tab VALUES('TIGER');
+INSERT INTO reg_tab VALUES('TIGGER');
+INSERT INTO reg_tab VALUES('elephant');
+INSERT INTO reg_tab VALUES('tiger');
+INSERT INTO reg_tab VALUES('tiger2');
+INSERT INTO reg_tab VALUES('tiger3');
+INSERT INTO reg_tab VALUES('doggy');
+INSERT INTO reg_tab VALUES('5doggy');
+INSERT INTO reg_tab VALUES('DOG');
+INSERT INTO reg_tab VALUES('DOG2');
+INSERT INTO reg_tab VALUES('°³');
+INSERT INTO reg_tab VALUES('cat');
+INSERT INTO reg_tab VALUES('catty');
+INSERT INTO reg_tab VALUES('9catty');
+INSERT INTO reg_tab VALUES('catwoman');
+INSERT INTO reg_tab VALUES('°í¾çÀÌ');
+INSERT INTO reg_tab VALUES('BAT');
+INSERT INTO reg_tab VALUES('BATMAN');
+INSERT INTO reg_tab VALUES('BATGIRL'); 
+INSERT INTO reg_tab VALUES('0BATGIRL'); 
+INSERT INTO reg_tab VALUES('¹ÚÁã');
+
+
+-- Ä¿¹Ô
+
+COMMIT;
+
+-- 1.  text ÄÃ·³ÀÇ ¹®ÀÚ¿­¿¡¼­ 't'·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+--where substr(lower(text),1,1) = 't';
+where substr(text,1,1) = 't';
+?
+select *
+from reg_tab
+where regexp_like (text, '^t');
+
+
+-- 2.  text ÄÃ·³ÀÇ ¹®ÀÚ¿­¿¡¼­ 't'·Î ³¡³ª´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where substr(lower(text),-1,1) = 't';
+--where substr(text,-1,1) = 't';
+?
+select *
+from reg_tab
+where regexp_like (text, 't$');
+?
+`
+
+
+-- 4. ¼ıÀÚ·Î ³¡³ª´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where regexp_like (text, '[0-9]$');
+
+?
+
+-- 5. ¼ıÀÚ·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅ¸ °Ë»ö
+select *
+from reg_tab
+where regexp_like (text, '^[0-9]');
+?
+
+-- 6. ¼ıÀÚ°¡ ¾Æ´Ñ ¹®ÀÚ·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where not regexp_like  (text, '^[0-9]');
+?
+
+-- 7. ´ë¹®ÀÚ·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where regexp_like (text, '^[A-Z]','c');
+?
+
+
+
+-- 8. ¼Ò¹®ÀÚ ¿ÜÀÇ ¹®ÀÚ·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where not regexp_like  (text, '^[a-z]','c');
+
+
+?
+
+-- 9. ÇÑ±Û·Î ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍ °Ë»ö
+select *
+from reg_tab
+where regexp_like  (text, '^[°¡-ÆR]');
+?
+-- 10. µ¥ÀÌÅÍ Áß 'gg'³ª 'GG'°¡ µé¾îÀÖ´Â µ¥ÀÌÅÍ °Ë»ö
+
+select *
+from reg_tab
+where regexp_like  (text, 'gg','i');

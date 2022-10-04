@@ -1,0 +1,11 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select rownum, empno,ename, job from emp where rownum<10;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664867159138]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.005]]></execTime>
+	</historyItem>
+</history>

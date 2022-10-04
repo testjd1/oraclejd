@@ -1,0 +1,13 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select *
+from reg_tab
+where regexp_like  (text, '^[A-Z]c');]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664874145891]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

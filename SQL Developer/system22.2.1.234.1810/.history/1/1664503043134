@@ -1,0 +1,43 @@
+-- 8000번 사원으로 <본인 이름>과 급여 10000를 저장
+--INSERT INTO table_name( column_names ) VALUES ( values );
+INSERT INTO  emp( empno, ename, sal ) 
+VALUES ( 8000,'soyun',10000 );
+
+SELECT * FROM emp;
+
+
+-- 7788번 사원으로 <본인 이름>과 급여 10000를 저장
+-- 7788에 이미 scott이 있어서 (key가 사번!) -> 오류
+INSERT INTO  emp( empno, ename, sal ) 
+VALUES ( 7788,'soyun',10000 );
+
+
+INSERT INTO  emp( empno, ename, sal, deptno ) 
+VALUES ( 8001,'홍길국',10000,20 );
+
+
+-- 다른테이블의 키에 존재하지 않는 걸 참조 -> 오류
+INSERT INTO  emp( empno, ename, sal, deptno ) 
+VALUES ( 8002,'홍길국',10000,50 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

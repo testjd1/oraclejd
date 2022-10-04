@@ -1,0 +1,14 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select  job, round(avg(sal),-2), sum(sal)
+from emp
+having avg(sal)>=3000
+group by job;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664870423456]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[2]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

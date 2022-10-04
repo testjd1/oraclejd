@@ -1,0 +1,14 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select department_id , max(salary)
+from employees
+group by department_id
+order by department_id;]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664872502326]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[2]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

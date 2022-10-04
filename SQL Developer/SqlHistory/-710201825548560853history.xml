@@ -1,0 +1,13 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select *
+from employees
+where commission_pct >=0;]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664871118500]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.005]]></execTime>
+	</historyItem>
+</history>

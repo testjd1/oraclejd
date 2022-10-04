@@ -1,0 +1,16 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select  job, sum(sal) as sum
+from emp
+where job != 'SALESMAN'
+having sum(sal)>5000
+group by job
+order by sum desc;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664870406133]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[3]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

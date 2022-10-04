@@ -1,0 +1,16 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT EMPNO, ENAME,JOB,SAL, CASE substr(job,1,10)
+            WHEN 'ANALYST' THEN sal*1.1
+            WHEN 'CLERK' THEN sal*1.15
+            WHEN 'MANAGER' THEN sal*1.2       
+            END as 증가한_급여
+from emp;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664866232631]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.004]]></execTime>
+	</historyItem>
+</history>

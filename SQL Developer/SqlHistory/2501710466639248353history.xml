@@ -1,0 +1,15 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select department_id, avg(salary) as avgs
+from employees
+group by department_id
+having department_id >= 10000
+order by avg(salary) desc;]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664872077967]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.004]]></execTime>
+	</historyItem>
+</history>

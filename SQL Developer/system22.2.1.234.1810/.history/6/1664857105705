@@ -1,0 +1,251 @@
+DROP TABLE DEPT;
+
+CREATE TABLE DEPT
+
+       (DEPTNO NUMBER(2) CONSTRAINT PK_DEPT PRIMARY KEY,
+
+DNAME VARCHAR2(14) ,
+
+LOC VARCHAR2(13) ) ;
+
+DROP TABLE EMP;
+
+CREATE TABLE EMP
+
+       (EMPNO NUMBER(4) CONSTRAINT PK_EMP PRIMARY KEY,
+
+ENAME VARCHAR2(10),
+
+JOB VARCHAR2(9),
+
+MGR NUMBER(4),
+
+HIREDATE DATE,
+
+SAL NUMBER(7,2),
+
+COMM NUMBER(7,2),
+
+DEPTNO NUMBER(2) CONSTRAINT FK_DEPTNO REFERENCES DEPT);
+
+INSERT INTO DEPT VALUES
+
+(10,'ACCOUNTING','NEW YORK');
+
+INSERT INTO DEPT VALUES (20,'RESEARCH','DALLAS');
+
+INSERT INTO DEPT VALUES
+
+(30,'SALES','CHICAGO');
+
+INSERT INTO DEPT VALUES
+
+(40,'OPERATIONS','BOSTON');
+
+INSERT INTO EMP VALUES
+
+(7369,'SMITH','CLERK',7902,to_date('17-12-1980','dd-mm-yyyy'),800,NULL,20);
+
+INSERT INTO EMP VALUES
+
+(7499,'ALLEN','SALESMAN',7698,to_date('20-2-1981','dd-mm-yyyy'),1600,300,30);
+
+INSERT INTO EMP VALUES
+
+(7521,'WARD','SALESMAN',7698,to_date('22-2-1981','dd-mm-yyyy'),1250,500,30);
+
+INSERT INTO EMP VALUES
+
+(7566,'JONES','MANAGER',7839,to_date('2-4-1981','dd-mm-yyyy'),2975,NULL,20);
+
+INSERT INTO EMP VALUES
+
+(7654,'MARTIN','SALESMAN',7698,to_date('28-9-1981','dd-mm-yyyy'),1250,1400,30);
+
+INSERT INTO EMP VALUES
+
+(7698,'BLAKE','MANAGER',7839,to_date('1-5-1981','dd-mm-yyyy'),2850,NULL,30);
+
+INSERT INTO EMP VALUES
+
+(7782,'CLARK','MANAGER',7839,to_date('9-6-1981','dd-mm-yyyy'),2450,NULL,10);
+
+INSERT INTO EMP VALUES
+
+(7788,'SCOTT','ANALYST',7566,to_date('13-7-1987','dd-mm-yyyy')-85,3000,NULL,20);
+
+INSERT INTO EMP VALUES
+
+(7839,'KING','PRESIDENT',NULL,to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,10);
+
+INSERT INTO EMP VALUES
+
+(7844,'TURNER','SALESMAN',7698,to_date('8-9-1981','dd-mm-yyyy'),1500,0,30);
+
+INSERT INTO EMP VALUES
+
+(7876,'ADAMS','CLERK',7788,to_date('13-7-1987','dd-mm-yyyy')-51,1100,NULL,20);
+
+INSERT INTO EMP VALUES
+
+(7900,'JAMES','CLERK',7698,to_date('3-12-1981','dd-mm-yyyy'),950,NULL,30);
+
+INSERT INTO EMP VALUES
+
+(7902,'FORD','ANALYST',7566,to_date('3-12-1981','dd-mm-yyyy'),3000,NULL,20);
+
+INSERT INTO EMP VALUES
+
+(7934,'MILLER','CLERK',7782,to_date('23-1-1982','dd-mm-yyyy'),1300,NULL,10);
+
+DROP TABLE BONUS;
+
+CREATE TABLE BONUS
+
+(
+
+ENAME VARCHAR2(10) ,
+
+JOB VARCHAR2(9)  ,
+
+SAL NUMBER,
+
+COMM NUMBER
+
+) ;
+
+DROP TABLE SALGRADE;
+
+CREATE TABLE SALGRADE
+
+      ( GRADE NUMBER,
+
+LOSAL NUMBER,
+
+HISAL NUMBER );
+
+INSERT INTO SALGRADE VALUES (1,700,1200);
+
+INSERT INTO SALGRADE VALUES (2,1201,1400);
+
+INSERT INTO SALGRADE VALUES (3,1401,2000);
+
+INSERT INTO SALGRADE VALUES (4,2001,3000);
+
+INSERT INTO SALGRADE VALUES (5,3001,9999);
+
+COMMIT;
+
+?
+
+SET TERMOUT ON
+
+SET ECHO ON
+
+
+-- 사원명, 급여, 월급(급여/12)를 출력하되 월급은 십단위에서 반올림하여 출력
+SELECT  ENAME, SAL, ROUND(SAL/12, -2) AS WOLGUP
+FROM    EMP;
+-- -2는 10의 자리 -1은 1의자리, 소수점이 아니라 양의 정수자리를 반올림할때 쓴다.
+
+-- 사원명, 급여, 세금(급여의 3.3%)를 원단위 절삭하고 출력
+SELECT  ENAME, SAL, sal*0.033, TRUNC(SAL*0.033,-1) AS SEGUM
+FROM    EMP;
+
+-- smith의 정보를 사원번호, 성명, 담당업무(소문자) 출력
+select empno,  ename, lower(job) as sjob
+from emp
+where ename ='SMITH';
+-- where lower(ename = ' smith')
+
+
+
+-- 사원번호, 사원명(첫글자만 대문자), 담당업무(첫글자만 대문자)로 출력
+select empno,  INITCAP(ename)as uname , INITCAP(job) as ujob
+from emp
+
+-- 이름의 첫글자가 ‘K’보다 크고 ‘Y’보다 작은 사원의 정보( 사원번호, 이름, 업무, 급여, 부서번호)를 출력하되 이름순으로 정렬
+select empno, ename, job, sal, deptno
+from emp
+where substr(ename,1,1)>'K' and substr(ename,1,1)<'Y'
+order by ename;
+
+-- 이름이 5글자 이상인 사원들을 출력
+select*
+from emp
+where length(ename)>=5;
+
+
+-- 이름을 15자로 맞추고 글자는 왼쪽에 오른쪽에는 ‘*’로 채운다
+select RPAD(ename,15,'*') as rstname
+from emp;
+
+-- 급여는 10자로 맞추고 숫자는 오른쪽에 왼쪽엔 ‘-‘로 채운다
+select LPAD(sal,10,'-') as lubsal
+from emp;
+
+
+select name,jumin , substr(jumin,8,1) gender,
+                    substr(jumin,1,2) birth_year
+from info_tab;
+
+- 양쪽 공백을 제거
+
+select '-' || trim(' 이순신 ') || '-' as col1, 
+
+'-' || ltrim(' 이순신 ') || '-' as col2, 
+
+'-' || rtrim(' 이순신 ') || '-' as col3 from dual;
+
+
+from dual;
+select sysdate
+from dual;
+
+
+-- 급여를 숫자에서 ‘영일이삼사오육칠팔구’ 글자로 대체
+select sal, TRANSLATE ( sal, '0123456789', '영일이삼사오육칠팔구' ) as chsal
+from emp;
+
+-- 급여의 숫자에서 0을 ‘$’로 바꾸어 출력
+select sal, TRANSLATE ( sal, '0', '$' ) as chsal2
+from emp;
+
+
+--*****
+
+select replace(' 이 순 신           ',' ','') as ename
+from dual;
+
+
+-- 현재까지 근무일 수가 많은 사람 순으로 출력
+select *
+from emp
+order by  hiredate;
+
+-- 현재까지 근무일 수가 몇 주 몇 일인가를 출력
+select ename, (trunc(sysdate,'day') - trunc(hiredate,'day'))/7 as howweek,
+                (trunc(sysdate) - trunc(hiredate)) as howday
+
+from emp
+order by howweek desc;
+
+
+
+-- 10번 부서의 사원의 현재까지의 근무 월수를 계산 
+select ename, ceil(months_between(sysdate,hiredate)) as nowmonth
+from emp
+where deptno = 10;
+
+
+-- 현재 날짜에서 3개월 후의 날짜 구하기
+select  add_months( sysdate, 3 ) as mydate 
+from dual;
+
+-- 현재 날짜에서 돌아오는 ‘월’요일의 날짜 구하기
+select next_day(sysdate,2) as cmmonday
+from dual; 
+
+-- 현재 날짜에서 해당 월의 마지막 날짜 구하기
+select last_day(sysdate) as lastday
+from dual;

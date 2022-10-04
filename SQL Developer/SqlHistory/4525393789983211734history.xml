@@ -1,0 +1,17 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT CASE substr( jumin, 8, 1) 
+            WHEN '1' THEN '남자'
+            WHEN '3' THEN '남자'         
+            ELSE '여자'      
+            END as gender
+
+FROM info_tab;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664865419478]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

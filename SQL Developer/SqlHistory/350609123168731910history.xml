@@ -1,0 +1,13 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select *
+from employees
+where job_id  in('SA_MAN','FI_MGR','FI_ACCOUNT','SA_REP');]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664872395358]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[2]]></executed>
+		<execTime><![CDATA[0.004]]></execTime>
+	</historyItem>
+</history>

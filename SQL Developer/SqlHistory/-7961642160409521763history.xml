@@ -1,0 +1,13 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select min(salary), max(salary), sum(salary), round(avg(salary),-2) as avg
+from employees
+group by To_char(hire_date,'yyyy');]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664871661263]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.003]]></execTime>
+	</historyItem>
+</history>

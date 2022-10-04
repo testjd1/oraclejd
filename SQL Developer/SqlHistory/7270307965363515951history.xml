@@ -1,0 +1,12 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT  job,decode( substr(job,1,10), 'ANALYST', sal*1.1, 'CLERK', sal*1.15,'MANAGER', sal*1.2) AS 증가한_급여 
+FROM emp;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664866214792]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.003]]></execTime>
+	</historyItem>
+</history>

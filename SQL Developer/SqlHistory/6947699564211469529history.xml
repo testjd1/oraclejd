@@ -1,0 +1,13 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select *
+from reg_tab
+where substr(lower(text),-1,1) = 't';]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664873424566]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.004]]></execTime>
+	</historyItem>
+</history>

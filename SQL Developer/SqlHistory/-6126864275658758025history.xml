@@ -1,0 +1,12 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[select employee_id, concat(first_name,last_name) as fullname, hire_date
+from employees;]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664870763576]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[1]]></executed>
+		<execTime><![CDATA[0.007]]></execTime>
+	</historyItem>
+</history>

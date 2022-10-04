@@ -1,0 +1,124 @@
+CREATE TABLE info_tab
+(
+    name        varchar2(10),
+    jumin        char(15),
+    tel          varchar2(20),
+    gender       varchar2(10),
+    age          number(3),
+    home         varchar2(20)
+);
+
+
+-- 8000번 사원으로 <본인 이름>과 급여 10000를 저장
+--INSERT INTO table_name( column_names ) VALUES ( values );
+INSERT INTO  emp( empno, ename, sal ) 
+VALUES ( 8000,'soyun',10000 );
+
+SELECT * FROM emp;
+
+
+-- 7788번 사원으로 <본인 이름>과 급여 10000를 저장
+INSERT INTO  emp( empno, ename, sal ) 
+VALUES ( 7788,'soyun',10000 );
+-- 7788에 이미 scott이 있어서 (key가 사번!) -> 오류
+
+
+INSERT INTO  emp( empno, ename, sal, deptno ) 
+VALUES ( 8001,'홍길국',10000,20 );
+
+
+
+
+
+
+
+INSERT INTO  emp( empno, ename, sal, deptno ) 
+VALUES ( 8002,'홍길국',10000,50 );
+-- 다른테이블의 키에 존재하지 않는 걸 참조 -> 오류
+
+
+------------------------------------------------------------
+INSERT INTO info_tab(tel,name,jumin,gender,age,home)
+values('032','홍자','801212','남자',33,'제주');
+
+select * from info_tab;
+
+/*
+INSERT INTO info_tab
+values('032','홍자','801212','남자',33,'제주');
+select * from info_tab;
+// 이런식으로 컬럼명 안넣어도 가능하기는 하나, 오류 발생 가능성 높으므로 권장x
+*/
+
+INSERT INTO info_tab(tel,name) values('1001','홍길동');
+INSERT INTO info_tab(tel,name) values('1002','김길동');
+INSERT INTO info_tab(tel,name) values('1002','둘리');
+INSERT INTO info_tab(name,jumin) values('김길동','901212-1234567');
+INSERT INTO info_tab(gender,age) values('남자',22);
+INSERT INTO info_tab(tel,gender,age) values('9999,'남자',22);
+
+select * from info_tab;
+
+delete from info_tab;
+commit;
+
+DROP TABLE info_tab CASCADE CONSTRAINT;
+
+CREATE TABLE info_tab
+(
+    name        varchar2(10),
+    jumin        char(15),
+    tel          varchar2(20),
+    gender       varchar2(10),
+    age          number(3),
+    home         varchar2(20),
+    CONSTRAINT pk_info_tel PRIMARY KEY (tel)
+);
+
+
+select * from info_tab;
+
+alter table info_tab
+ADD  CONSTRAINT  pk_info_tel  PRIMARY  KEY ( tel );
+
+-- 테이블 추가 후 기본키 변경
+ALTER  TABLE   info_tab
+Modify (name varchar2(10) not null);  
+
+alter table info_tab
+add constraint uq_info_jumin unique (jumin);
+
+insert into info_tab(tel, name, jumin) values('20001','hs','990101');
+insert into info_tab(tel, name, jumin) values('20002','hs2','990101');
+insert into info_tab(tel, name) values('20003','hs3');
+
+
+
+select *from info_tab;
+
+alter table info_tab
+ADD constraint ck_info_gender  check (gender in ('남성','여성'));
+
+insert into info_tab(tel,name,gender) values('10001','hd', '남성');
+insert into info_tab(tel,name,gender) values('10002','hd2', '남자');
+insert into info_tab(tel,name,gender) values('10003','hs', '여성');
+
+alter table info_tab
+    modify(gender varchar2(6) default '남성');
+insert into info_tab(tel, name) values('7777','홍이');
+
+
+-- [확인]
+
+INSERT INTO info_tab( name, tel, jumin ) 
+VALUES('갑순이', '02-777-4444', '990909-1234567');
+
+INSERT INTO info_tab( name, tel, jumin, gender, age, home )
+VALUES('갑갑이','03-555-5555', '880808-1234567', '남자', 27,'경기');
+
+INSERT INTO info_tab( name, tel, jumin, gender, age, home )
+VALUES('홍길동','03-031-0310', '900909-1234567', '남성', 27,'경기');
+
+INSERT INTO info_tab( name, jumin) VALUES('홍길자', '550505-1234567');
+INSERT INTO info_tab( tel, jumin ) VALUES('031-777-7777', '700707-1234567');
+INSERT INTO info_tab( name, tel, jumin ) VALUES('갑동이', '031-000-0000', '700707-1234567');

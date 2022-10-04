@@ -1,0 +1,17 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT deptno, CASE substr(deptno,1,2)
+            WHEN '10' THEN '영업'
+            WHEN '20' THEN '관리부'
+            WHEN '30' THEN 'IT부' 
+            ELSE '기술부'      
+            END as 부서
+from emp;]]></sql>
+		<connection><![CDATA[scott]]></connection>
+		<timestamp><![CDATA[1664866169987]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[2]]></executed>
+		<execTime><![CDATA[0.002]]></execTime>
+	</historyItem>
+</history>

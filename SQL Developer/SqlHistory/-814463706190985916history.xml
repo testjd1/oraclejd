@@ -1,0 +1,12 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<history>
+	<historyItem>
+		<sql><![CDATA[SELECT job_id, decode( job_id, 'SA_MAN', '판매부서', 'SA_REP', '판매부서', '그 외 부서') AS 부서 
+FROM employees;]]></sql>
+		<connection><![CDATA[hr]]></connection>
+		<timestamp><![CDATA[1664872408707]]></timestamp>
+		<type><![CDATA[SQL]]></type>
+		<executed><![CDATA[2]]></executed>
+		<execTime><![CDATA[0.004]]></execTime>
+	</historyItem>
+</history>
