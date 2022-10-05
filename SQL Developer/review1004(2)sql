@@ -143,3 +143,140 @@ where regexp_like  (text, '^[°¡-ÆR]');
 select *
 from reg_tab
 where regexp_like  (text, 'gg','i');
+
+SELECT*
+FROM reg_tab
+WHERE REGEXP_LIKE(TEXT, 'gg')or REGEXP_LIKE(TEXT, 'GG');
+
+-- smithÀÇ Á¤º¸¸¦ »ç¿ø¹øÈ£, ¼º¸í, ´ã´ç¾÷¹«(¼Ò¹®ÀÚ) Ãâ·Â
+
+SELECT empno, ename, LOWER(job) as job
+FROM emp
+WHERE ename = 'SMITH';
+
+-- »ç¿ø¹øÈ£, »ç¿ø¸í(Ã¹±ÛÀÚ¸¸ ´ë¹®ÀÚ), ´ã´ç¾÷¹«(Ã¹±ÛÀÚ¸¸ ´ë¹®ÀÚ)·Î Ãâ·Â
+
+SELECT empno, INITCAP(ename) as ename, INITCAP(job) as job
+FROM emp;
+
+-- ÀÌ¸§ÀÇ Ã¹±ÛÀÚ°¡ ¡®K¡¯º¸´Ù Å©°í ¡®Y¡¯º¸´Ù ÀÛÀº »ç¿øÀÇ Á¤º¸( »ç¿ø¹øÈ£, ÀÌ¸§, ¾÷¹«, ±Þ¿©, ºÎ¼­¹øÈ£)¸¦ Ãâ·ÂÇÏµÇ ÀÌ¸§¼øÀ¸·Î Á¤·Ä
+
+select empno, ename, job, sal, deptno
+from emp
+where substr(ename,1,1)>'K' and substr(ename,1,1)<'Y'
+order by ename;
+
+
+
+-- ÀÌ¸§ÀÌ 5±ÛÀÚ ÀÌ»óÀÎ »ç¿øµéÀ» Ãâ·Â
+
+SELECT *
+FROM emp
+WHERE LENGTH (ename) >= 5;
+
+
+-- ÀÌ¸§À» 15ÀÚ·Î ¸ÂÃß°í ±ÛÀÚ´Â ¿ÞÂÊ¿¡ ¿À¸¥ÂÊ¿¡´Â ¡®*¡¯·Î Ã¤¿î´Ù
+
+SELECT RPAD (ename, 15, '*')
+FROM emp;
+
+
+
+-- ±Þ¿©´Â 10ÀÚ·Î ¸ÂÃß°í ¼ýÀÚ´Â ¿À¸¥ÂÊ¿¡ ¿ÞÂÊ¿£ ¡®-¡®·Î Ã¤¿î´Ù
+
+SELECT LPAD (sal, 10, '-')
+FROM emp;
+
+-- ÇöÀç±îÁö ±Ù¹«ÀÏ ¼ö°¡ ¸î ÁÖ ¸î ÀÏÀÎ°¡¸¦ Ãâ·Â
+select ename, (trunc(sysdate,'day') - trunc(hiredate,'day'))/7 as howweek,
+(trunc(sysdate) - trunc(hiredate)) as howday
+from emp;
+
+-- 10¹ø ºÎ¼­ÀÇ »ç¿øÀÇ ÇöÀç±îÁöÀÇ ±Ù¹« ¿ù¼ö¸¦ °è»ê
+select ename, CEIL(months_between(sysdate,hiredate))
+from emp
+where deptno = '10';
+
+-- ÇöÀç ³¯Â¥¿¡¼­ 3°³¿ù ÈÄÀÇ ³¯Â¥ ±¸ÇÏ±â
+select SYSdate, add_months( SYSDATE, 3 ) as mydate
+from DUAL;
+
+-- ÇöÀç ³¯Â¥¿¡¼­ µ¹¾Æ¿À´Â (ÀÏ-1, ¿ù-2, È­-3...)¡®¿ù¡¯¿äÀÏÀÇ ³¯Â¥ ±¸ÇÏ±â
+select next_day(sysdate,2) AS MYDAY
+from dual;
+
+-- ÇöÀç ³¯Â¥¿¡¼­ ÇØ´ç ¿ùÀÇ ¸¶Áö¸· ³¯Â¥ ±¸ÇÏ±â
+select last_day(sysdate) AS THEDAY
+from dual;
+
+
+-- ÀÔ»çÀÏÀÚ¿¡¼­ ÀÔ»ç³âµµ¸¦ Ãâ·Â
+SELECT ENAME, HIREDATE, TO_CHAR(HIREDATE,'YYYY') AS HIRE_YEAR
+FROM EMP;
+
+-- ÀÔ»çÀÏÀÚ¸¦ ¡®1999³â 1¿ù 1ÀÏ¡¯ Çü½ÄÀ¸·Î Ãâ·Â
+SELECT ENAME, HIREDATE, TO_CHAR(HIREDATE,'YYYY"³â" MM"¿ù" DD"ÀÏ"') AS HIRE_DATE
+FROM EMP;
+
+-- 1981³âµµ¿¡ ÀÔ»çÇÑ »ç¿ø °Ë»ö
+SELECT *
+FROM EMP
+WHERE TO_CHAR(HIREDATE,'YYYY')='1981'; AS YEAR
+--WHERE TO_CHAR(HIREDATE,'YYYY')LIKE'1981';
+
+-- 5¿ù¿¡ ÀÔ»çÇÑ »ç¿ø °Ë»ö
+SELECT *
+FROM EMP
+WHERE TO_CHAR(HIREDATE,'MM')='05'; AS MONTH
+--WHERE TO_CHAR(HIREDATE,'MM')LIKE'05';
+
+-- ±Þ¿© ¾Õ¿¡ $¸¦ »ðÀÔÇÏ°í 3ÀÚ¸® ¸¶´Ù ,¸¦ Ãâ·Â
+SELECT ENAME, SAL, TO_CHAR(SAL, '$999,999,999,999') AS DOLLAR
+FROM EMP;
+
+
+-- ºÎ¼­¹øÈ£°¡ 10ÀÌ¸é ¿µ¾÷ºÎ, 20ÀÌ¸é °ü¸®ºÎ, 30ÀÌ¸é ITºÎ ±× ¿Ü´Â ±â¼úºÎ·Î Ãâ·Â
+
+--1
+
+SELECT deptno, decode( deptno, 10, '¿µ¾÷ºÎ', 20, '°ü¸®ºÎ', 30, 'ITºÎ', '±â¼úºÎ') AS part
+FROM emp;
+--¹®ÀÚ ¼ýÀÚ ±¸ºÐ ÀßÇÏ±â
+
+
+--2
+SELECT deptno, CASE deptno
+WHEN 10 THEN '¿µ¾÷ºÎ'
+WHEN 20 THEN '°ü¸®ºÎ'
+WHEN 30 THEN 'ITºÎ'
+ELSE '±â¼úºÎ'
+END as part
+FROM emp;
+
+
+
+-- ¾÷¹«(job)ÀÌ analystÀÌ¸é ±Þ¿© Áõ°¡°¡ 10%ÀÌ°í clerkÀÌ¸é 15%, managerÀÌ¸é 20%ÀÎ °æ¿ì
+--»ç¿ø¹øÈ£, »ç¿ø¸í, ¾÷¹«, ±Þ¿©, Áõ°¡ÇÑ ±Þ¿©¸¦ Ãâ·Â
+
+
+
+-- ¾÷¹«(job)ÀÌ analystÀÌ¸é ±Þ¿© Áõ°¡°¡ 10%ÀÌ°í clerkÀÌ¸é 15%, managerÀÌ¸é 20%ÀÎ °æ¿ì
+--»ç¿ø¹øÈ£, »ç¿ø¸í, ¾÷¹«, ±Þ¿©, Áõ°¡ÇÑ ±Þ¿©¸¦ Ãâ·Â
+
+--1
+SELECT empno, ename, job, sal, decode(job, 'ANALYST', sal*1.1, 'CLERK', sal*1.15, 'MANAGER', sal*1.2) AS change
+FROM emp;
+
+
+--2
+
+SELECT empno, ename, job, sal, CASE job
+WHEN 'ANALYST' THEN sal*1.1
+WHEN 'CLERK' THEN sal*1.15
+WHEN 'MANAGER' THEN sal*1.2
+ELSE sal
+END as change
+FROM emp;
+
+
+
