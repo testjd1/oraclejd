@@ -387,7 +387,3 @@ when not matched then
     values(e2.empno,e2.ename,e2.job,e2.mgr,e2.hiredate,e2.sal,e2.comm,e2.deptno);
 
 
-
-
-
-
